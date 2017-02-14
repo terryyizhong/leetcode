@@ -1,0 +1,47 @@
+#Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+#
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+def mergeTwoLists(self, l1, l2):
+	head = curr = ListNode(0) 		#if	we want do it iteratively, we need to creat a 'head' point that stay at head for return at the end
+ 	while l1 and l2:				#end the loop when one is None
+		if l1.val >= l2.val:
+			curr.next = l2
+			l2 = l2.next
+		else:
+			curr.next = l1
+			l1 = l1.next
+		curr = curr.next			# control the step, one node each loop
+	curr.next = l1 or l2			# end the loop when one is None, so curr point to "l1 or l2" means the not None one
+	return head.next
+	
+# recursively
+def mergeTwoLists(self, l1, l2):
+	if not l1 or not l2:		# the base case of recursion, when one is None return the other
+		return l1 or l2
+	if l1.val <= l2.val:
+		l1.next = self.mergeTwoList(l1.next, l2) 			#smaller one point to the else part(already merged),actually we did the merge 																	from the end of list
+		return l1
+	else:
+		l2.next = self.mergeTwoList(l2.next, l1)
+		return l2
+# optimal
+def mergeTwoLists(self, l1, l2):
+	if None in (l1,l2):				
+		return l1 or l2
+	head = curr = ListNode(0）
+	curr.next = l1
+	while l1 and l2:
+		if l1.val <= l2.val:			#do nothing but move the point before find the first one larger than l2
+			l1 = l1.next
+		else:
+			curr.next = l2			#insert the one in l2 between curr and the l1 larger than l2
+			temp = l2.next
+			l2.next = l1
+			l2 = temp
+		curr = curr.next
+	curr.next = l1 or l2
+	return head.next

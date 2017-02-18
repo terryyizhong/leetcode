@@ -1,0 +1,17 @@
+#Given a binary tree, find its maximum depth.
+#
+#The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+##
+class Solution(object):
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if root:         #if something is not None == if something
+            d = max(self.maxDepth(root.left) + 1, self.maxDepth(root.right) + 1) #we can remove d, just return at this step, and can use 1 + max()
+        else:
+            return 0
+        return d
+         
+# a little better solution:

@@ -11,7 +11,7 @@ Given the below binary tree and sum = 22,
         7    2      1
 return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 
-################
+################NOTE!!!!!!!!!!!!! LEAF NODE!
 
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -32,3 +32,17 @@ class Solution(object):
         if root.left is None and root.right is None and sum == root.val:  #should be "and" between first two case, or the recursive should return only two child is None
             return True
         return self.hasPathSum(root.left, sum-root.val) or self.hasPathSum(root.right, sum-root.val)
+#####################
+#DFS ITERATIVELY
+
+class Solution(object):
+    def hasPathSum(self, root, sum):
+        stack = [(root, sum)]
+        while stack:
+            node, value = stack.pop()
+            if node:
+                if not node.left and not node.right and node.val == value:
+                    return True
+                stack.append((node.right, value-node.val))
+                stack.append((node.left, value-node.val))
+        return False

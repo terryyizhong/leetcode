@@ -1,0 +1,52 @@
+'''Maximum Size Subarray Sum Equals k
+Given an array nums and a target value k, find the maximum length of a subarray that sums to k. If there isn't one, return 0 instead.
+
+Note:
+The sum of the entire nums array is guaranteed to fit within the 32-bit signed integer range.
+
+Example 1:
+
+Given nums = [1, -1, 5, -2, 3], k = 3,
+return 4. (because the subarray [1, -1, 5, -2] sums to 3 and is the longest)
+
+Example 2:
+
+Given nums = [-2, -1, 2, 1], k = 1,
+return 2. (because the subarray [-1, 2] sums to 1 and is the longest)
+
+Follow Up:
+Can you do it in O(n) time?
+'''
+#看思路后 先求sum[i] (前i个元素之和）  the sum from i to j is sum[j] - sum[i - 1] except that from 0 to j is sum[j].
+class Solution(object):
+    def maxSubArrayLen(self, nums, k):
+        if nums == []:         #debug
+            return 0
+        sum = [nums[0]]
+        hash = {}
+        hash[sum[0]] = 0
+        for i in range(len(nums)-1): #no need to save another list can do in one pass
+            sum.append(sum[i] + nums[i+1])
+            hash[sum[i+1]] = i+1
+        L = 0
+        for i in range(len(nums)):
+            if k in hash:
+                L = max(hash[k]+1, L)
+            if k + sum[i] in hash:
+                L = max(hash[k + sum[i]]-i, L)
+        return L
+Modified:
+class Solution(object):
+    def maxSubArrayLen(self, nums, k):
+        if nums == []:                            #debug
+            return 0
+        sum = 0
+        mp = {0:0} #better initialization
+        ans = 0
+        for i in range(len(nums)):
+            sum += nums[i]
+            if sum not in mp: #do not map same sum because we want the largest,this way already prove the index of the left sum is samll
+                mp[sum] = i + 1
+            if sum - k in mp: # search satisfied by use large sum - k = small sum
+                ans = max(i + 1 - mp[sum-k], ans)
+        return ans

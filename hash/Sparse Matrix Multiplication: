@@ -1,0 +1,44 @@
+'''Sparse Matrix Multiplication:
+
+Given two sparse matrices A and B, return the result of AB.
+
+You may assume that A's column number is equal to B's row number.
+'''
+class Solution(object):
+    def multiply(self, A, B):
+       ## ha = {}
+        hb = {}
+        m, n, l = len(A), len(A[0]), len(B[0])   ###### save these vaule at begin
+        # for i in range(m):
+        #     for j in range(n):
+        #         if A[i][j]:
+        #             ha[i, j] = A[i][j] ### only need one table
+        for j in range(n):
+            for k in range(l):
+                if B[j][k]:
+                    hb[j, k] = B[j][k]
+        AB = [[0 for i in range(l)] for i in range(m)] 
+        for i,row in enumerate(A): ### learn to use enumerate return index and value
+            for j,val in enumerate(row): ###
+                if val:
+                    for k,l in hb:
+                        if j == k:
+                            AB[i][l] += val * hb[k, l]
+        return AB
+
+class Solution(object):
+    def multiply(self, A, B):
+        if A is None or B is None: return None
+        hb = {}
+        m, n, l = len(A), len(A[0]), len(B[0])
+        for i, row in enumerate(B): #another way to construct table B
+            hb[i] = {}
+            for j, val in enumerate(row):
+                if val: hb[i][j] = val
+        AB = [[0 for i in range(l)] for i in range(m)]
+        for i, row in enumerate(A):
+            for j, vala in enumerate(row):
+                if vala:
+                    for k, valb in hb[j].iteritems():  #need to use iteritems because the index of hb[j] is not f rom 0 to n.   iteritems  return the index we set
+                        AB[i][k] += vala * valb
+        return AB

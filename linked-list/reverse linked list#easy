@@ -1,0 +1,38 @@
+#Reverse a singly linked list.(单链表）
+#iterative：
+class Solution(object):
+    def reverseList(self, head):
+        curr = head
+        prev = None
+        while curr != None:
+            t = curr.next
+            curr.next = prev
+            prev = curr
+            curr = t
+        return prev
+
+'''
+recursive：
+trick：
+Assume from node nk+1 to nm had been reversed and you are at node nk.
+
+n1 → … → nk-1 → nk → nk+1 ← … ← nm
+
+We want nk+1’s next node to point to nk.
+
+So,
+
+nk.next.next = nk;
+
+Be very careful that n1's next must point to Ø. 
+'''
+
+class Solution(object):
+    def reverseList(self, head):
+        if head == None or head.next ==None:
+            return head
+        
+        t = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+        return t

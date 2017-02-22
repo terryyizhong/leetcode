@@ -1,0 +1,31 @@
+'''Hard 第一题：Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible results.
+Note: The input string may contain letters other than the parentheses ( and ).
+
+Examples:
+"()())()" -> ["()()()", "(())()"] "(a)())()" -> ["(a)()()", "(a())()"] ")(" -> [""]
+'''
+#BFS SOLUTION:
+
+class Solution(object):
+    def removeInvalidParentheses(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        def isvalid(s):         # 判断是否valid 一旦右括号比左括号多或者 总共的括号数不一致
+            count = 0
+            for c in s:
+                if c == '(':
+                    count += 1
+                if c == ')':
+                    count -= 1
+                if count < 0:
+                    return False
+            return count == 0
+        level = {s} #存放每层的所有string可能，每低一层存放所有上一层去掉一个括号的所有结果
+        while True:
+            ans = filter(isvalid, level) #filter 用来生成通过isvalid function 的level里的所有元素集合的list
+            if ans:
+                return ans
+            level = {s[:i] + s[i+1:] for s in level for i in range(len(s))}  #生成下一层的strings by remove each 
+position的括号

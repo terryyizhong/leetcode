@@ -1,0 +1,38 @@
+'''Given a binary tree, return the vertical order traversal of its nodes' values. (ie, from top to bottom, column by column).
+
+If two nodes are in the same row and column, the order should be from left to right.
+
+Key: USE collections.defaultdict(list) to store the values of same colum in same list.
+'''
+
+# Definition for a binary tree node.
+
+# class TreeNode(object):
+
+#     def __init__(self, x):
+
+#         self.val = x
+
+#         self.left = None
+
+#         self.right = None
+
+
+
+class Solution(object):
+
+    def verticalOrder(self, root):
+
+        cols = collections.defaultdict(list)   # 创建一个dictionary-like object. 形式为[(index， list), ]
+
+        queue = [(root, 0)]        #如何给类变量伴随一个参数
+
+        for node, i in queue:
+
+            if node:
+
+                cols[i].append(node.val) #i is index , cols[i] is list type and append the node.val in same list for same i
+
+                queue += (node.left, i - 1), (node.right, i + 1)           #bfs
+
+        return [cols[i] for i in sorted(cols)]  # sort cols by index(i) to get the right order, and return the list we want

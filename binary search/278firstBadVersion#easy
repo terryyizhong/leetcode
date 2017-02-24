@@ -14,7 +14,22 @@ class Solution(object):
                     return mid
                 right = mid
             else: left = mid
-            
+#improve:
+class Solution(object):
+    def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        left, right = 1, n
+        while left <= right:
+            mid = (left + right) /2
+            if isBadVersion(mid):
+                if not isBadVersion(mid - 1):
+                    return mid
+                right = mid
+            else: left = mid + 1
+#others'            
 class Solution(object):
     def firstBadVersion(self, n):
         r = n

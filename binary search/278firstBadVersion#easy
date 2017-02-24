@@ -1,0 +1,30 @@
+class Solution(object):
+    def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if isBadVersion(1):
+            return 1
+        left, right = 1, n + 1 
+        while left < right:
+            mid = (left + right) /2
+            if isBadVersion(mid):
+                if not isBadVersion(mid - 1):
+                    return mid
+                right = mid
+            else: left = mid
+            
+class Solution(object):
+    def firstBadVersion(self, n):
+        r = n
+        l = 1
+        while l < r:
+            mid = l + ((r - l) / 2)   # use this version instead (l+r)/2 for prevent integer overflow
+            if isBadVersion(mid):
+                r = mid
+            else:
+                l = mid + 1    # answer is left + 1 because mid always < r and r is always bad version
+        return l            
+
+O(logn)

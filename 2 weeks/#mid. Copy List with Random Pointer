@@ -1,0 +1,40 @@
+A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.
+
+Return a deep copy of the list.(need also copy the random attributes)
+
+# 2 iteration
+
+# Definition for singly-linked list with a random pointer.
+# class RandomListNode(object):
+#     def __init__(self, x):
+#         self.label = x
+#         self.next = None
+#         self.random = None
+
+class Solution(object):
+    def copyRandomList(self, head):
+        """
+        :type head: RandomListNode
+        :rtype: RandomListNode
+        """
+        dic = {}
+        i1 = i2 = head
+        while i1:
+            dic[i1] = RandomListNode(i1.label)
+            i1 = i1.next
+        while i2:
+            dic[i2].next = dic.get(i2.next)
+            dic[i2].random = dic.get(i2.random)
+            i2 = i2.next
+        return dic.get(head)
+        
+# 1 iteration
+dic = collections.defaultdict(lambda: RandomListNode(0))
+        dic[None] = None   # avoid None as key to generate a RandomListNode
+        n = head
+        while n:
+            dic[n].label = n.label
+            dic[n].next = dic[n.next]
+            dic[n].random = dic[n.random]
+            n = n.next
+        return dic.get(head)

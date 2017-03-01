@@ -1,0 +1,73 @@
+        """Write an algorithm to determine if a number is "happy".
+A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers.
+Example: 19 is a happy number
+12 + 92 = 82
+82 + 22 = 68
+62 + 82 = 100
+12 + 02 + 02 = 1 
+
+#Using hashing 
+class Solution(object):
+    def isHappy(self, n):
+
+
+        :type n: int
+        :rtype: bool
+        """
+        digit, hash = str(n), {}        #should not change it to str format, it's space and time consuming
+        while digit != '1':
+            sum = 0
+            for i in range(len(digit)):
+                sum += int(digit[i]) * int(digit[i])
+            if sum in hash:
+                return False
+            hash[sum] = 1
+            digit = str(sum)
+        return True
+#############
+        hash = {}
+        while n != 1:
+            sum = 0
+            while n != 0:
+                sum += (n % 10) * (n % 10)
+                n = n // 10
+            if sum in hash:
+                return False
+            hash[sum], n = 1, sum
+        return True
+#################
+def isHappy(self, n):
+    mem = set()
+    while n != 1:
+        n = sum([int(i) ** 2 for i in str(n)])
+        if n in mem:
+            return False
+        mem.add(n)
+    else:
+        return True
+###########3 O(1) SPACE SIMILAR TO FIND CYCLE IN LINKED LIST
+class Solution(object):
+    def isHappy(self, n):
+        slow, fast = n, n
+        while True:
+            slow = self.sums(slow)
+            fast = self.sums(self.sums(fast))
+            if fast == 1:
+                return True 
+            if slow == fast:
+                return False
+    def sums(self, n):
+        sum = 0
+        while n != 0 :
+            sum += (n % 10) *  (n % 10)
+            n //= 10
+        return sum
+#############best:      
+   slow, fast = n, self.sums(n)
+        while slow != fast:
+            slow = self.sums(slow)
+            fast = self.sums(self.sums(fast))
+        return True if slow == 1 else False      
+        
+        
+        

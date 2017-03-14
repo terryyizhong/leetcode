@@ -17,12 +17,12 @@ def maxPoints(self, points):
                 elif dx == 0:
                     dic['i'] = dic.get('i', 1) + 1
                 else:
-                    k = dy*1.0 / dx
+                    k = dy*1.0 / dx                     #use division of two number as key should consider the accuracy, -0 == 0 is True, multiply 1.0 to transfer to float
                     dic[k] = dic.get(k, 1) + 1
-            ans = max(ans, same+max(dic.values()))
+            ans = max(ans, same+max(dic.values()))    
         return ans
         
-###use gcd of dx and dy, and store tuple (dx//gcd, dy//gcd)         
+###use gcd of dx and dy, and store tuple (dx/gcd, dy/gcd)         
 
 def maxPoints(self, points):
         """
@@ -44,11 +44,11 @@ def maxPoints(self, points):
                     dy /= gcd
                     dic[(dx, dy)] = dic.get((dx, dy), 0) + 1
             if dic:
-                ans = max(ans, same+max(dic.values()))
+                ans = max(ans, same+max(dic.values()))                  #use function max should prevent the input be not None
             ans = max(ans, same)
         return ans
         
-    def gcd(self, a, b):
+    def gcd(self, a, b):                      
         if b == 0:
             return a
         return self.gcd(b, a%b)

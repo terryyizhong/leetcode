@@ -1,0 +1,11 @@
+＃Given an integer n, return the number of trailing zeroes in n!.
+
+＃Note: Your solution should be in logarithmic time complexity.
+all come with 5  * 2, we have a lot 2 in n! so just need to count how many 5
+class Solution(object):
+    def trailingZeroes(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        return 0 if not n else n / 5 + self.trailingZeroes(n / 5)

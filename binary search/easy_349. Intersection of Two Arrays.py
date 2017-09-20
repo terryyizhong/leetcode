@@ -8,6 +8,28 @@ Note:
 Each element in the result must be unique.
 The result can be in any order.
 '''
+'''
+What if the given array is already sorted? How would you optimize your algorithm?
+just used 2 pointers solution
+
+What if nums1's size is small compared to nums2's size? Which algorithm is better?
+make a hashmap stored nums1 and check in nums2
+
+What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
+
+If only nums2 cannot fit in memory, put all elements of nums1 into a HashMap, read chunks of array that fit into the memory, and record the intersections.
+
+#I think the second part of the solution is impractical, if you read 2 elements at a time, this procedure will take forever. In principle, we want minimize the number of disk access during the run-time.
+An improvement can be sort them using external sort, read (let's say) 2G of each into memory and then using the 2 pointer technique, then read 2G more from the array that has been exhausted. Repeat this until no more data to read from disk.
+
+#I think the goal of this question is to test whether the interview understands some of the data engineering techniques. From a data engineer's perspective, basically there are three ideas to solve the question:
+
+Store the two strings in distributed system(whether self designed or not), then using MapReduce technique to solve the problem;
+
+Processing the Strings by chunk, which fits the memory, then deal with each chunk of data at a time;
+
+Processing the Strings by streaming, then check.
+'''
 
 class Solution(object):
     def intersection(self, nums1, nums2):

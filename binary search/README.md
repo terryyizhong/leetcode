@@ -34,7 +34,8 @@ int binary_search_2(int a[], int n, int key)<br />
 &nbsp; &nbsp; if (a[l] == key) return l;<br />
 &nbsp; &nbsp; return -1;<br />
 }<br />
-3.求最小的i，使得a[i] &gt; key，若不存在，则返回-1int binary_search_3(int a[], int n, int key)<br />
+3.求最小的i，使得a[i] &gt; key，若不存在，则返回-1<br />
+int binary_search_3(int a[], int n, int key)<br />
 {<br />
 &nbsp; &nbsp; int m, l = 0, r = n - 1;//闭区间[0, n - 1]<br />
 &nbsp; &nbsp; while (l &lt; r)<br />
@@ -46,7 +47,8 @@ int binary_search_2(int a[], int n, int key)<br />
 &nbsp; &nbsp; if (a[r] &gt; key) return r;<br />
 &nbsp; &nbsp; return -1;<br />
 }<br />
-4.求最大的i，使得a[i] &lt; key，若不存在，则返回-1int binary_search_4(int a[], int n, int key)<br />
+4.求最大的i，使得a[i] &lt; key，若不存在，则返回-1<br />
+int binary_search_4(int a[], int n, int key)<br />
 {<br />
 &nbsp; &nbsp; int m, l = 0, r = n - 1;//闭区间[0, n - 1]<br />
 &nbsp; &nbsp; while (l &lt; r)<br />

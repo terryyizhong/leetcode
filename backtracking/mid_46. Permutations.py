@@ -42,3 +42,22 @@ class Solution(object):
         for idx in range(len(nums)):
             ans = [per[:i] + [nums[idx]] + per[i:] for per in ans for i in range(len(per) + 1)]     # insert this way, no need deepcopy and insert
         return ans
+      
+      
+#StefanPochmann  
+#Solution 1: Recursive, take any number as first
+
+#Take any number as the first number and append any permutation of the other numbers.
+
+def permute(self, nums):
+    return [[n] + p
+            for i, n in enumerate(nums)
+            for p in self.permute(nums[:i] + nums[i+1:])] or [[]]
+#Solution 2: Recursive, insert first number anywhere
+
+#Insert the first number anywhere in any permutation of the remaining numbers.
+
+def permute(self, nums):
+    return nums and [p[:i] + [nums[0]] + p[i:]
+                     for p in self.permute(nums[1:])
+                     for i in range(len(nums))] or [[]]

@@ -1,0 +1,93 @@
+'''
+You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Follow up:
+What if you cannot modify the input lists? In other words, reversing the lists is not allowed.
+
+Example:
+
+Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 8 -> 0 -> 7
+'''
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+#my "cheat" solution
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        if not l1 or not l2: return l2 or l1
+        l1_str = l2_str = ""
+        while l1:
+            l1_str += str(l1.val)
+            l1 = l1.next
+        while l2:
+            l2_str += str(l2.val)
+            l2 = l2.next
+        add_str = str(int(l1_str) + int(l2_str))
+        dummy = curr = ListNode(int(add_str[0]))
+        for i in range(1,len(add_str)):
+            curr.next = ListNode(int(add_str[i]))
+            curr = curr.next
+        curr.next = None
+        return dummy
+  
+  # O(n) reverse 2 time:
+  # Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        if not l1 or not l2: return l2 or l1
+        curr1, curr2, n1, n2 = l1, l2, 0 , 0
+        while curr1:
+            curr1, n1 = curr1.next, n1 + 1
+        while curr2:
+            curr2, n2 = curr2.next, n2 + 1
+        curr1, curr2, tail = l1, l2, None
+        while n1 > 0 and n2 > 0:
+            sum = 0
+            if n1 >= n2:
+                sum, curr1, n1 = sum + curr1.val, curr1.next, n1 - 1
+            if n2 > n1:
+                sum, curr2, n2 = sum + curr2.val, curr2.next, n2 - 1
+            tmp = ListNode(sum)       # sum can >10 
+            tmp.next, tail = tail, tmp
+        curr, carry, tail = tail, 0, None
+        while curr:
+            tmp, carry = ListNode((curr.val + carry) % 10 ), (curr.val + carry) / 10
+            tmp.next, tail = tail, tmp
+            curr = curr.next    # maybe should delete node generate: currt = curr; curr = curr.next; del currt
+        if carry:
+            head = ListNode(carry)
+            head.next, tmp = tmp, head
+        return tmp
+            
+                
+            
+            
+        
+        
+                
+            
+        
+        
+                
+            

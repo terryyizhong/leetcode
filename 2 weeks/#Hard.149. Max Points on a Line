@@ -17,7 +17,7 @@ def maxPoints(self, points):
                 elif dx == 0:
                     dic['i'] = dic.get('i', 1) + 1
                 else:
-                    k = dy*1.0 / dx                     #use division of two number as key should consider the accuracy, -0 == 0 is True, multiply 1.0 to transfer to float
+                    k = numpy.longdouble(dy*1.0) / dx                     #use division of two number as key should consider the accuracy, -0 == 0 is True, multiply 1.0 to transfer to float
                     dic[k] = dic.get(k, 1) + 1
             ans = max(ans, same+max(dic.values()))    
         return ans

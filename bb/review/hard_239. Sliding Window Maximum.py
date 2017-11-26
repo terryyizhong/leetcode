@@ -27,12 +27,12 @@ class Solution(object):
         deque = collections.deque()
         ans = []
         for i, v in enumerate(nums):
-            while deque and v >= nums[deque[-1]]:
+            while deque and v >= nums[deque[-1]]:  # make sure the most left is curr window's max, if larger, can dele the end, else should                                                            keep in it beacuse could be the max of latter window
                 deque.pop()
-            deque.append(i)
-            if i - k == deque[0]:
+            deque.append(i)   
+            if i - k == deque[0]:   # if deque has ele's index out of window popleft
                 deque.popleft()
-            if i >= k - 1:
+            if i >= k - 1:    # after i >= k -1, each itearation append the curr window's max
                 ans.append(nums[deque[0]])
         return ans
                 
